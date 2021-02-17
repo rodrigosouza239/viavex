@@ -1,0 +1,44 @@
+
+<ion-content class="login-content">
+  <!--(ngSubmit)="doLogin()"-->
+  
+    <form [formGroup]="loginForm" >
+      <ion-list class="inputs-list" lines="full">
+        <h2 class="auth-title">
+         Registro
+          <br>
+          <a>Enviamos um código por SMS,informe-o<br> abaixo</a>
+        </h2>
+        <ion-item lines="none" class="input-item">
+          <ion-input placeholder="Código de acesso" formControlName="codigo" clearInput autocapitalize="off"></ion-input>
+        </ion-item>
+        <div class="error-container">
+          <ng-container *ngFor="let validation of validation_messages.codigo">
+            <div class="error-message"
+              *ngIf="loginForm.get('codigo').hasError(validation.type) && (loginForm.get('codigo').dirty || loginForm.get('codigo').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </div>
+      
+        <ion-button class="login-btn" type="submit" expand="block" (click)="AuthSenhas()" >
+          Confirmar código
+          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button class="login-btn1" type="submit" expand="block">
+          Reenviar...Aguarde
+        </ion-button>
+        <div class="error-container">
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error-message"
+              *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </ion-list>
+    </form>
+  </ion-content>

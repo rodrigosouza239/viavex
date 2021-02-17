@@ -1,0 +1,115 @@
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+  --page-margin: var(--app-broad-margin);
+  --page-background: #f1f1f5;
+}
+
+// Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+.login-content {
+  --background:#f1f1f5;
+  --padding-start: var(--page-margin);
+  --padding-end: var(--page-margin);
+  --padding-top: var(--page-margin);
+  --padding-bottom: var(--page-margin);
+
+  .auth-title {
+    color: var(--ion-color-dark);
+    font-weight: bold;
+    margin-top: calc(var(--page-margin) / 2);
+    margin-bottom: calc(var(--page-margin) * (3/2));
+    letter-spacing: 0.6px;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  
+  .auth-title a {
+   font-size: 17px;
+   font-weight: 300;
+   text-align: center;
+  }
+
+  .inputs-list {
+    --ion-item-background: var(--page-background);
+    
+    margin-top: calc(var(--page-margin) * 13/1);
+
+
+    .input-item {
+      --padding-start: 20px;
+      --padding-end: 0px;
+      --inner-padding-end: 0px;
+      --background: #ffff;
+      --border-radius:27px;
+      height: 55px;
+    } 
+
+    .error-container {
+      .error-message {
+        margin: calc(var(--page-margin) / 2) 0px;
+        display: flex;
+        align-items: center;
+        color: var(--ion-color-danger);
+        font-size: 14px;
+
+        ion-icon {
+          padding-inline-end: calc(var(--page-margin) / 2);
+        }
+      }
+    }
+  }
+
+  .login-btn {
+    margin: calc(var(--page-margin) / 2) 0px;
+    --background: #f7690b;
+    --border-radius:27px;
+    height: 55px;
+  }
+
+  .login-btn1 {
+    margin: calc(var(--page-margin) / 2) 0px;
+    --background: #c4c4c4;
+    --border-radius:27px;
+    height: 55px;
+  }
+
+  .other-auth-options-row {
+    justify-content: space-between;
+    align-items: center;
+
+    .forgot-btn {
+      --color: var(--ion-color-medium);
+      margin: 0px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .signup-btn {
+      --color: var(--ion-color-secondary);
+      margin: 0px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .social-auth-options {
+    .options-divider {
+      color: var(--ion-color-medium);
+  		margin: var(--page-margin) 0px;
+  		text-align: center;
+    }
+
+    .social-auth-btn {
+      margin: 0px;
+
+      &:not(:first-child) {
+        margin-top: var(--page-margin);
+      }
+    }
+  }
+}

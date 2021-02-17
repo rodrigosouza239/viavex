@@ -1,0 +1,34 @@
+
+<ion-content class="login-content">
+  <!--(ngSubmit)="doLogin()"-->
+  
+    <form [formGroup]="loginForm" >
+      <ion-list class="inputs-list" lines="full">
+        <h2 class="auth-title">
+         Registro
+          <br>
+          <a>Agora crie uma senha de acesso</a>
+        </h2>
+        <ion-item lines="none" class="input-item">
+          <ion-input placeholder="Senha" formControlName="password" clearInput autocapitalize="off"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="input-item">
+          <ion-input placeholder="Confirmar a senha" clearInput autocapitalize="off"></ion-input>
+        </ion-item>
+        <div class="error-container">
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error-message"
+              *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </div>
+      
+        <ion-button class="login-btn" type="submit" expand="block">
+         Continuar
+         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+      </ion-list>
+    </form>
+  </ion-content>
