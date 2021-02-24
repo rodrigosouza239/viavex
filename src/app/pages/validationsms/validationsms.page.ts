@@ -4,16 +4,20 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
-
+import { ApiService  } from '../../services/api.service';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-validationsms',
   templateUrl: './validationsms.page.html',
   styleUrls: ['./validationsms.page.scss'],
+  providers: [ApiService],
 })
 export class ValidationsmsPage {
   loginForm: FormGroup;
-  codigoRecebido = "";
+  celular:'';
+  cpf: '';
 
+  codigo: '';
   validation_messages = {
     'celular': [
       { type: 'required', message: 'Celular é obrigatório.' },
@@ -33,6 +37,8 @@ export class ValidationsmsPage {
   constructor(
     public router: Router,
     public menu: MenuController,
+    private service: ApiService,
+    public loadingController: LoadingController
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -55,11 +61,25 @@ export class ValidationsmsPage {
     });
   }
 
-  
-  AuthSenhas(){
-    if(this.loginForm.get("codigo").value == "" && this.loginForm.get("codigo").value =="")
-  return;
-    this.router.navigate(['senha']);
-  }
 
+  public  async AuthSenhas(){
+    if(this.codigo){
+      let json = await this.service.sms();
+      if(json){
+        const loading = await this.loadingController.create({
+          cssClass: 'my-custom-class',
+          message: 'Por favor, espere...',
+          duration: 6000,
+          spinner:'lines'
+         });
+         await loading.present()
+         const{} = await loading.onDidDismiss();
+        this.router.navigate(['maps']);
+      }else{
+        alert("CPF ERRADO!")
+      }
+    }else{
+     alert("Preencha os campos!")
+    }
+ }
 }

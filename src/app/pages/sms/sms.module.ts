@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { BrMaskerModule } from 'br-mask';
 import { SmsPageRoutingModule } from './sms-routing.module';
 
 import { SmsPage } from './sms.page';
@@ -14,7 +14,8 @@ import { SmsPage } from './sms.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    SmsPageRoutingModule
+    SmsPageRoutingModule,
+    BrMaskerModule
   ],
   declarations: [SmsPage]
 })

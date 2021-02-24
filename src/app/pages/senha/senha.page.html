@@ -4,9 +4,10 @@
   
     <form [formGroup]="loginForm" >
       <ion-list class="inputs-list" lines="full">
+        <p class="ion-text-center">
+          <img  src="../../../assets/logo-vex3.png" />
+        </p>
         <h2 class="auth-title">
-         Registro
-          <br>
           <a>Agora crie uma senha de acesso</a>
         </h2>
         <ion-item lines="none" class="input-item">
@@ -24,11 +25,12 @@
             </div>
           </ng-container>
         </div>
-      
-        <ion-button class="login-btn" type="submit" expand="block">
-         Continuar
-         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-        </ion-button>
+       
+        <a class="button-inner" (click)="selfie()" >
+          Confirmar código
+          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+        </a>
+
       </ion-list>
     </form>
   </ion-content>

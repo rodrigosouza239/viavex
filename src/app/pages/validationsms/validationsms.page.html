@@ -4,13 +4,14 @@
   
     <form [formGroup]="loginForm" >
       <ion-list class="inputs-list" lines="full">
+        <p class="ion-text-center">
+          <img  src="../../../assets/logo-vex3.png" />
+        </p>
         <h2 class="auth-title">
-         Registro
-          <br>
           <a>Enviamos um código por SMS,informe-o<br> abaixo</a>
         </h2>
         <ion-item lines="none" class="input-item">
-          <ion-input placeholder="Código de acesso" formControlName="codigo" clearInput autocapitalize="off"></ion-input>
+          <ion-input [(ngModel)]="codigo" placeholder="Código de acesso" formControlName="codigo" clearInput autocapitalize="off"></ion-input>
         </ion-item>
         <div class="error-container">
           <ng-container *ngFor="let validation of validation_messages.codigo">
@@ -22,11 +23,12 @@
           </ng-container>
         </div>
       
-        <ion-button class="login-btn" type="submit" expand="block" (click)="AuthSenhas()" >
+        <a class="button-inner" (click)="AuthSenhas()" >
           Confirmar código
           <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-        </ion-button>
+        </a>
 
+ 
         <ion-button class="login-btn1" type="submit" expand="block">
           Reenviar...Aguarde
         </ion-button>

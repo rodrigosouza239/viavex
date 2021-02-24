@@ -4,10 +4,13 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
+import { LoadingController } from '@ionic/angular';
+import { ApiService  } from '../../services/api.service';
 @Component({
   selector: 'app-senha',
   templateUrl: './senha.page.html',
   styleUrls: ['./senha.page.scss'],
+  providers: [ApiService],
 })
 export class SenhaPage{
   loginForm: FormGroup;
@@ -32,6 +35,8 @@ export class SenhaPage{
   constructor(
     public router: Router,
     public menu: MenuController,
+    private service: ApiService,
+    public loadingController: LoadingController
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -55,9 +60,24 @@ export class SenhaPage{
   }
 
   
-  AuthSenhas(){
-    if(this.loginForm.get("codigo").value == "" && this.loginForm.get("codigo").value =="")
-  return;
-    this.router.navigate(['validationsms']);
-  }
+  public  async selfie(){
+    // if(this.codigoRecebido){
+    //   let json = await this.service.EnviarDados();
+    //   if(json){
+    //     const loading = await this.loadingController.create({
+    //       cssClass: 'my-custom-class',
+    //       message: 'Por favor, espere...',
+    //       duration: 6000,
+    //       spinner:'lines'
+    //      });
+    //      await loading.present()
+    //      const{} = await loading.onDidDismiss();
+    //      this.router.navigate(['selfie']);
+    //   }else{
+    //     alert("CPF ERRADO!")
+    //   }
+    // }else{
+    //  alert("Preencha os campos!")
+    // }
+ }
 }

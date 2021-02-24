@@ -60,11 +60,23 @@
     }
   }
 
-  .login-btn {
-    margin: calc(var(--page-margin) / 2) 0px;
-    --background: #f7690b;
-    --border-radius:27px;
+  .button-inner {
+    display: flex;
+    position: relative;
+    flex-flow: row nowrap;
+    flex-shrink: 0;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+    justify-content: space-between;
+  
+    background:var(--app-backgroudbtn);
+    border-radius:27px;
     height: 55px;
+  
+    color:#fff;
+    padding: var(--padding-start);
+    font-size: 1,2rem;
   }
 
   .login-btn1 {

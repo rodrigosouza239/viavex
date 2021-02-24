@@ -1,0 +1,58 @@
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+  --page-margin: var(--app-broad-margin);
+  --page-background: #f1f1f5;
+}
+
+// Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+.login-content {
+  --background:#130220;
+  --padding-start: var(--page-margin);
+  --padding-end: var(--page-margin);
+  --padding-top: var(--page-margin);
+  --padding-bottom: var(--page-margin);
+
+  align-items: center;
+
+
+  ion-card{
+    --background:#f1f1f500
+  }
+
+  .ion-icon-backgroud{
+    width: 70px;
+    height: 70px;
+    border-radius: 37px;
+    border: solid 1px #c4c4c4;
+    ion-icon{
+     
+    }
+  }
+
+  
+  .auth-title a {
+   font-size: 17px;
+   font-weight: 300;
+   text-align: center;
+  }
+
+
+
+  .login-btn {
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+  }
+
+  .login-btn1 {
+    margin: calc(var(--page-margin) / 2) 0px;
+    --background: #c4c4c4;
+    --border-radius:27px;
+    height: 55px;
+  }
+
+
+}
+
+

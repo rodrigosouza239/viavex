@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+
 import { IonicModule } from '@ionic/angular';
-import { LoginPageRoutingModule } from './login-routing.module';
-import { LoginPage } from './login.page';
 import { BrMaskerModule } from 'br-mask';
+import { ForgotPageRoutingModule } from './forgot-routing.module';
+
+import { ForgotPage } from './forgot.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
-    BrMaskerModule,
-    NgxMaskModule.forRoot(),
-    LoginPageRoutingModule,
+    ForgotPageRoutingModule,
+    ReactiveFormsModule,
+    BrMaskerModule
   ],
-  declarations: [LoginPage]
+  declarations: [ForgotPage]
 })
-export class LoginPageModule {}
+export class ForgotPageModule {}

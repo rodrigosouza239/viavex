@@ -4,18 +4,19 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
-import { AppSevice } from '../../../service/api';
-
+import { ApiService  } from '../../services/api.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sms',
   templateUrl: './sms.page.html',
   styleUrls: ['./sms.page.scss'],
-  providers: [AppSevice]
+  providers: [ApiService],
 })
 export class SmsPage{
   loginForm: FormGroup;
   codigoRecebido = "";
+  celular: '';
 
   validation_messages = {
     'celular': [
@@ -36,7 +37,8 @@ export class SmsPage{
   constructor(
     public router: Router,
     public menu: MenuController,
-    private service: AppSevice
+    private service: ApiService,
+    public loadingController: LoadingController
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -59,15 +61,25 @@ export class SmsPage{
     });
   }
 
-  
-  soliciarCodigo(){
-    if(this.loginForm.get("celular").value == "" && this.loginForm.get("celular").value =="")
-    return;
-    this.service.solicitarCodigo(this.loginForm.get("cpf").value, this.loginForm.get("celular"))
-      .subscribe(result => {
-        this.codigoRecebido = result
-        alert("Login com sucesso!! : " + result);
-      });
-    this.router.navigate(['validationsms']);
-  }
+  public  async haldlePageValidationsms(){
+    if(this.celular){
+      let json = await this.service.telefone(this.celular);
+      if(json){
+        const loading = await this.loadingController.create({
+          cssClass: 'my-custom-class',
+          message: 'Por favor, espere...',
+          duration: 6000,
+          spinner:'lines'
+         });
+         await loading.present()
+         const{} = await loading.onDidDismiss();
+        this.router.navigate(['validationsms']);
+      }else{
+        alert("CPF ERRADO!")
+      }
+    }else{
+     alert("Preencha os campos!")
+    }
+ }
+
 }

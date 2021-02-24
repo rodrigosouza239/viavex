@@ -39,6 +39,18 @@ const routes: Routes = [
     path: 'validationsms',
     loadChildren: () => import('./pages/validationsms/validationsms.module').then( m => m.ValidationsmsPageModule)
   },
+  {
+    path: 'selfie',
+    loadChildren: () => import('./pages/selfie/selfie.module').then( m => m.SelfiePageModule)
+  },
+  {
+    path: 'registerdocuments',
+    loadChildren: () => import('./pages/registerdocuments/registerdocuments.module').then( m => m.RegisterdocumentsPageModule)
+  },
+  {
+    path: 'forgot',
+    loadChildren: () => import('./pages/forgot/forgot.module').then( m => m.ForgotPageModule)
+  },
 ];
 
 @NgModule({

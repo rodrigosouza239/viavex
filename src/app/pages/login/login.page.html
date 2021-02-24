@@ -2,13 +2,15 @@
 <ion-content class="login-content">
     <form [formGroup]="loginForm" >
       <ion-list class="inputs-list" lines="full">
+        <p class="ion-text-center">
+          <img  src="../../../assets/logo-vex3.png" />
+        </p>
         <h2 class="auth-title">
-          Log In
           <br>
           <a>Informe seu CPF</a>
         </h2>
         <ion-item lines="none" class="input-item">
-          <ion-input [(ngModel)]="cpf" placeholder="CPF" formControlName="cpf" clearInput autocapitalize="off"></ion-input>
+          <ion-input [brmasker]="{person: true}" maxLength="14"  [(ngModel)]="cpf" prefix="+7" mask="000.000.00-00" placeholder="CPF" formControlName="cpf" clearInput autocapitalize="off"></ion-input>
         </ion-item>
         <div class="error-container">
           <ng-container *ngFor="let validation of validation_messages.cpf">
@@ -19,13 +21,20 @@
             </div>
           </ng-container>
         </div>
-        <ion-button class="login-btn" type="submit" expand="block" (click)="Login()" >
-          Continuar
-          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-        </ion-button>
       </ion-list>
-      <p class="ion-text-center">
-        <a class="text-title">Não tenho uma conta</a>
-      </p>
+      <a class="button-inner"  (click)="haldlePageLogin()" >
+        Continuar
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </a>
+
+      <a class="button-inner1"  (click)="haldlePagForgot()" >
+        Esquecer minha senha
+      </a>
+      
     </form>
   </ion-content>
+  <ion-footer class="ion-no-border">
+    <p class="ion-text-center">
+      <a class="text-title">Não tenho uma conta</a>
+    </p>
+  </ion-footer>

@@ -7,19 +7,18 @@ import { Validacoes } from '../../shared/util/validacoes';
 import { LoadingController } from '@ionic/angular';
 import { ApiService  } from '../../services/api.service';
 
-
-
-
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-forgot',
+  templateUrl: './forgot.page.html',
+  styleUrls: ['./forgot.page.scss'],
   providers: [ApiService],
 })
-export class LoginPage {
+export class ForgotPage {
   loginForm: FormGroup;
   codigoRecebido = "";
   cpf: '';
+  telefone: '';
+  novaSenha: ''
 
   validation_messages = {
     'celular': [
@@ -31,6 +30,12 @@ export class LoginPage {
       { type: 'pattern', message: 'Entre com um CPF válido.' },
       { type: 'validaCpf', message: 'Entre com um CPF válido.' }
     ],
+
+    'password': [
+      { type: 'required', message: 'senha é obrigatório.' },
+      { type: 'pattern', message: 'Entre com um CPF válido.' },
+      { type: 'validaCpf', message: 'Entre com um CPF válido.' }
+    ],
   };
 
   constructor(
@@ -38,7 +43,7 @@ export class LoginPage {
     public menu: MenuController,
     private service: ApiService,
     public loadingController: LoadingController
-  ) {
+  ) { 
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
         Validators.required,
@@ -62,8 +67,8 @@ export class LoginPage {
 
  
 public  async haldlePageLogin (){
-   if(this.cpf){
-     let json = await this.service.signIn(this.cpf);
+   if(this.telefone,this.cpf){
+     let json = await this.service.foogot(this.cpf,this.telefone,this.novaSenha);
      if(json){
        const loading = await this.loadingController.create({
         cssClass: 'my-custom-class',
@@ -73,7 +78,7 @@ public  async haldlePageLogin (){
        });
        await loading.present()
        const{} = await loading.onDidDismiss();
-       this.router.navigate(['sms']);
+       this.router.navigate(['login']);
      }else{
        alert("CPF ERRADO!")
      }
@@ -85,4 +90,3 @@ public  async  haldlePagForgot(){
   this.router.navigate(['forgot']);
 }
 }
-

@@ -1,0 +1,23 @@
+
+<ion-content class="login-content">
+  <!--(ngSubmit)="doLogin()"-->
+  
+    <form>
+      <ion-list class="inputs-list" lines="full">
+        <h2 class="auth-title">
+         Registro
+          <br>
+          <a>Agora,obtenha uma foto do seu<br> documento e uma selfie</a>
+        </h2>
+   
+        <ion-button (click)="selfie()" class="login-btn" type="submit" expand="block">
+          vamos lá
+         <ion-icon slot="end" name="camera"></ion-icon>
+        </ion-button>
+
+        <ion-button  class="login-btn" type="submit" expand="block">
+          pular(dev)
+         </ion-button>
+      </ion-list>
+    </form>
+  </ion-content>

@@ -21,7 +21,12 @@
     "@angular/router": "~11.2.0",
     "@capacitor/android": "^2.4.6",
     "@capacitor/core": "2.4.6",
+    "@ionic-native/sqlite": "^5.31.1",
     "@ionic/angular": "^5.5.2",
+    "@ionic/storage": "^2.3.1",
+    "br-mask": "0.0.10",
+    "cordova-sqlite-storage": "^5.1.0",
+    "ngx-mask": "^11.1.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

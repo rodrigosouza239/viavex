@@ -1,0 +1,40 @@
+
+<ion-content class="login-content">
+  <form [formGroup]="loginForm" >
+    <ion-list class="inputs-list" lines="full">
+      <p class="ion-text-center">
+        <img  src="../../../assets/logo-vex3.png" />
+      </p>
+      <h2 class="auth-title">
+        <br>
+        <a>Informe seu Telefone e CPF</a>
+      </h2>
+      <ion-item lines="none" class="input-item">
+        <ion-input [brmasker]="{phone: true}"  [(ngModel)]="telefone" prefix="+7" placeholder="Celular" formControlName="celular" clearInput autocapitalize="off"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="input-item">
+        <ion-input [brmasker]="{person: true}" maxLength="14"  [(ngModel)]="cpf" prefix="+7"  placeholder="CPF" formControlName="cpf" clearInput autocapitalize="off"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="input-item">
+        <ion-input  maxLength="14"  [(ngModel)]="novaSenha" prefix="+7"  placeholder="Nova senha" formControlName="password" clearInput autocapitalize="off"></ion-input>
+      </ion-item>
+      
+      <div class="error-container">
+        <ng-container *ngFor="let validation of validation_messages.cpf">
+          <div class="error-message"
+            *ngIf="loginForm.get('cpf').hasError(validation.type) && (loginForm.get('cpf').dirty || loginForm.get('cpf').touched)">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </ion-list>
+    <a class="button-inner"  (click)="haldlePageLogin()" >
+      Continuar
+      <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+    </a>
+
+  </form>
+</ion-content>
