@@ -4,17 +4,16 @@
   
     <form [formGroup]="loginForm" >
       <ion-list class="inputs-list" lines="full">
-        <p class="ion-text-center">
-          <img  src="../../../assets/logo-vex3.png" />
-        </p>
         <h2 class="auth-title">
+          Registro
+          <br>
           <a>Agora crie uma senha de acesso</a>
         </h2>
         <ion-item lines="none" class="input-item">
-          <ion-input placeholder="Senha" formControlName="password" clearInput autocapitalize="off"></ion-input>
+          <ion-input [(ngModel)]="Senha"  placeholder="Senha" formControlName="password" clearInput autocapitalize="off"></ion-input>
         </ion-item>
         <ion-item lines="none" class="input-item">
-          <ion-input placeholder="Confirmar a senha" clearInput autocapitalize="off"></ion-input>
+          <ion-input [(ngModel)]="senha" formControlName="password"    placeholder="Confirmar a senha" clearInput autocapitalize="off"></ion-input>
         </ion-item>
         <div class="error-container">
           <ng-container *ngFor="let validation of validation_messages.password">
@@ -26,10 +25,10 @@
           </ng-container>
         </div>
        
-        <a class="button-inner" (click)="selfie()" >
-          Confirmar código
-          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-        </a>
+        <div  (click)="selfie()" class="button-inner">
+          <p>Confirmar código</p>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </div>
 
       </ion-list>
     </form>

@@ -1,0 +1,125 @@
+ion-content{
+  --background:#f1f1f5 ;
+}
+
+ion-header{
+ --background:#f1f1f5 ;
+}
+ion-toolbar{
+  --background:#f1f1f5 ;
+}
+
+.containerBody{
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  padding-top: 44px;
+
+  .containerbodyleft{
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    display: flex;
+  }
+
+  .containerbodyleft ion-icon{
+    font-size: 40px;
+  } 
+
+  .containerbodyleft p{
+    font-size: 26px;
+    color:black;
+    font-weight: 300;
+  }
+
+  .containerbodyleft h1{
+    font-size: 35px;
+    color:black;
+    font-weight: 800;
+  }
+
+  .containerSeach{
+    margin-top: 40px;
+  }
+
+  .containerSeach ion-item{
+    --min-height:60px;
+    --background: #ffffff;
+    --border-radius: 8px;
+  }
+
+  .containerSeach ion-icon{
+    color:#f7690b;
+  }
+
+  .containerBanner{
+    height: 120px;
+    background-color:#f7690b;
+    border-radius: 8px;
+    margin-top: 30px;
+  }
+
+  .containerList{
+    justify-content:space-between;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    margin-top: 20px;
+  
+
+    .containerlistheader{
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      display: flex;
+      width: 110px;
+      height: 110px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: #ffffffbe 1px 1px 1px 1px;
+    }
+
+    .containerlistheader ion-icon{
+      color:#f7690b;
+      width: 60px;
+      height: 60px;
+      margin-top: 10px;
+    }
+
+    .containerlistheader p{
+      color:#1f1f1e;
+      font-size: 20px;
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+}
+
+.fab-container{
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  background-color: #f7690b;
+  height: 50px;
+  width: 200px;
+  border-radius: 73px;
+}
+
+.fab-container p{
+  color:#fff;
+  font-size: 17px;
+}
+
+.fab-container ion-icon{
+  color:#fff;
+  font-size: 17px;
+}
+
+ion-footer{
+  background:#f1f1f5 ;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 80px;
+}

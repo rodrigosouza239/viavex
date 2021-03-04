@@ -1,17 +1,43 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header  class="ion-no-border">
+    <ion-icon src="../../../assets/left-arrow.svg"></ion-icon>
     <ion-title>Cadastro</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 
 <ion-content class="login-content">
   <!--(ngSubmit)="doLogin()"-->
+  <div class="content-card">
+    <div class="content-icon">
+      <ion-icon src="../../../assets/mao-segurando-o-celular-para-tirar-uma-selfie.svg"></ion-icon>
+    </div>
+    <p>Tire fotos de seus documentos</p>
+  </div>
 
-      <ion-card style="width: 70px; height: 70px;" class="ion-text-center">
-        <p>
-          <ion-icon name="pin"></ion-icon>
-        </p>
-        <ion-card-title>Card Title</ion-card-title>
-      </ion-card>
+  <p class="ion-text-center">
+    <ion-icon style="color:white; width: 30px; height: 30px; margin-top: 20px;" name="arrow-down-outline"></ion-icon>
+  </p>
+
+
+  <div class="content-card">
+    <div class="content-icon">
+      <ion-icon src="../../../assets/front-camera.svg"></ion-icon>
+    </div>
+    <p>Tire sua selfie</p>
+  </div>
+
+  <p class="ion-text-center">
+    <ion-icon style="color:white; width: 30px; height: 30px; margin-top: 20px;" name="arrow-down-outline"></ion-icon>
+  </p>
+
+  <div class="content-card">
+    <div class="content-icon">
+      <ion-icon src="../../../assets/enviar.svg" ></ion-icon>
+    </div>
+    <p>Envie as fotos</p>
+  </div>
   </ion-content>
+  <ion-footer  class="ion-no-border">
+        <a (click)="registerhome()">
+          CADASTRAR DOCUMENTO
+        </a>
+  </ion-footer>

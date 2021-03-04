@@ -6,6 +6,7 @@ import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { ApiService  } from '../../services/api.service';
 import { LoadingController } from '@ionic/angular';
+import { ToastService } from './../../services/toast.service';
 @Component({
   selector: 'app-validationsms',
   templateUrl: './validationsms.page.html',
@@ -38,7 +39,8 @@ export class ValidationsmsPage {
     public router: Router,
     public menu: MenuController,
     private service: ApiService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private toastService: ToastService,
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -61,25 +63,31 @@ export class ValidationsmsPage {
     });
   }
 
+  validateInputs() {
+    console.log(this.codigo);
+    let codigo = this.codigo.trim();
+    return (
+      this.codigo &&
+      codigo.length > 2
+    );
+  }
 
-  public  async AuthSenhas(){
-    if(this.codigo){
-      let json = await this.service.sms();
-      if(json){
-        const loading = await this.loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por favor, espere...',
-          duration: 6000,
-          spinner:'lines'
-         });
-         await loading.present()
-         const{} = await loading.onDidDismiss();
-        this.router.navigate(['maps']);
-      }else{
-        alert("CPF ERRADO!")
-      }
-    }else{
-     alert("Preencha os campos!")
+
+  public async AuthSenhas() {
+    if(this.validateInputs()){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Por favor, espere...',
+      duration: 3000,
+      spinner:'lines'
+     });
+     await loading.present()
+    try{
+      //  const response = await this.service.sms()
+       this.router.navigate(['senha']);
+    }catch(error){
+      this.toastService.presentToast("Celular INVALIDO");
     }
- }
+  }
+  }
 }

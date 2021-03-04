@@ -2,10 +2,9 @@
 <ion-content class="login-content">
     <form [formGroup]="loginForm" >
       <ion-list class="inputs-list" lines="full">
-        <p class="ion-text-center">
-          <img  src="../../../assets/logo-vex3.png" />
-        </p>
+      
         <h2 class="auth-title">
+          Log In
           <br>
           <a>Informe seu CPF</a>
         </h2>
@@ -22,19 +21,23 @@
           </ng-container>
         </div>
       </ion-list>
-      <a class="button-inner"  (click)="haldlePageLogin()" >
-        Continuar
-        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-      </a>
+      
+      <div  (click)="haldlePageLogin()" class="button-inner">
+        <p class="ion-text-center">Continuar</p>
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </div>
+  
+
+    
+  
 
       <a class="button-inner1"  (click)="haldlePagForgot()" >
-        Esquecer minha senha
+        Não tenho uma conta
+      </a>
+
+      <a class="button-inner1"  (click)="haldlePagMaps()" >
+        Entrar direto
       </a>
       
     </form>
   </ion-content>
-  <ion-footer class="ion-no-border">
-    <p class="ion-text-center">
-      <a class="text-title">Não tenho uma conta</a>
-    </p>
-  </ion-footer>

@@ -4,10 +4,10 @@
   
     <form [formGroup]="loginForm" >
       <ion-list class="inputs-list" lines="full">
-        <p class="ion-text-center">
-          <img  src="../../../assets/logo-vex3.png" />
-        </p>
+       
         <h2 class="auth-title">
+          Registro
+          <br>
           <a>Informe seu número de telefone</a>
         </h2>
         <ion-item lines="none" class="input-item">
@@ -23,10 +23,12 @@
           </ng-container>
         </div>
       
-        <a class="button-inner" (click)="haldlePageValidationsms()" >
-          Enviar código
-          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-        </a>
+        <div  (click)="haldlePageValidationsms()" class="button-inner">
+          <p>Enviar código</p>
+          <ion-icon name="call-outline"></ion-icon>
+        </div>
+    
+
         <div class="error-container">
           <ng-container *ngFor="let validation of validation_messages.password">
             <div class="error-message"

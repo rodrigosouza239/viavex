@@ -5,9 +5,8 @@ import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { LoadingController } from '@ionic/angular';
-import { ApiService  } from '../../services/api.service';
-
-
+import { ApiService } from '../../services/api.service';
+import { ToastService } from './../../services/toast.service';
 
 
 @Component({
@@ -36,8 +35,9 @@ export class LoginPage {
   constructor(
     public router: Router,
     public menu: MenuController,
+    public loadingController: LoadingController,
+    private toastService: ToastService,
     private service: ApiService,
-    public loadingController: LoadingController
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -60,29 +60,43 @@ export class LoginPage {
     });
   }
 
- 
-public  async haldlePageLogin (){
-   if(this.cpf){
-     let json = await this.service.signIn(this.cpf);
-     if(json){
-       const loading = await this.loadingController.create({
-        cssClass: 'my-custom-class',
-        message: 'Por favor, espere...',
-        duration: 6000,
-        spinner:'lines'
-       });
-       await loading.present()
-       const{} = await loading.onDidDismiss();
+
+  validateInputs() {
+    console.log(this.cpf);
+    let cpf = this.cpf.trim();
+    return (
+      this.cpf &&
+      cpf.length > 9
+    );
+  }
+
+
+
+  public async haldlePageLogin() {
+    if(this.validateInputs()){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Por favor, espere...',
+      duration: 3000,
+      spinner:'lines'
+     });
+     await loading.present()
+    try{
+      //  const response = await this.service.signIn(this.cpf)
        this.router.navigate(['sms']);
-     }else{
-       alert("CPF ERRADO!")
-     }
-   }else{
-    alert("Preencha os campos!")
-   }
-}
-public  async  haldlePagForgot(){
-  this.router.navigate(['forgot']);
-}
+    }catch(error){
+      this.toastService.presentToast("CPF INVALIDO");
+    }
+  }
+  }
+
+
+  public async haldlePagForgot() {
+    this.router.navigate(['forgot']);
+  }
+
+  haldlePagMaps(){
+    this.router.navigate(['home'])
+  }
 }
 

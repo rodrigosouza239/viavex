@@ -66,25 +66,25 @@ export class ForgotPage {
   }
 
  
-public  async haldlePageLogin (){
-   if(this.telefone,this.cpf){
-     let json = await this.service.foogot(this.cpf,this.telefone,this.novaSenha);
-     if(json){
-       const loading = await this.loadingController.create({
-        cssClass: 'my-custom-class',
-        message: 'Por favor, espere...',
-        duration: 6000,
-        spinner:'lines'
-       });
-       await loading.present()
-       const{} = await loading.onDidDismiss();
-       this.router.navigate(['login']);
-     }else{
-       alert("CPF ERRADO!")
-     }
-   }else{
-    alert("Preencha os campos!")
-   }
+ public  async haldlePageLogin (){
+if(this.telefone,this.cpf){
+const loading = await this.loadingController.create({
+cssClass: 'my-custom-class',
+message: 'Por favor, espere...',
+duration: 5000,
+spinner:'lines'
+});
+ await loading.present()
+const{} = await loading.onDidDismiss();
+//      let json = await this.service.foogot(this.cpf,this.telefone,this.novaSenha);
+//      if(json){
+//        this.router.navigate(['login']);
+//      }else{
+//        alert("CPF ERRADO!")
+//      }
+//    }else{
+//     alert("Preencha os campos!")
+}
 }
 public  async  haldlePagForgot(){
   this.router.navigate(['forgot']);

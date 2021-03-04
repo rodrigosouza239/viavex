@@ -10,14 +10,18 @@
           <a>Agora,obtenha uma foto do seu<br> documento e uma selfie</a>
         </h2>
    
-        <ion-button (click)="selfie()" class="login-btn" type="submit" expand="block">
-          vamos lá
-         <ion-icon slot="end" name="camera"></ion-icon>
-        </ion-button>
+        <div (click)="selfie()" class="button-inner">
+          <p class="ion-text-center">vamos lá</p>
+          <ion-icon name="camera"></ion-icon>
+</div>
 
-        <ion-button  class="login-btn" type="submit" expand="block">
-          pular(dev)
-         </ion-button>
+
+      <div (click)="selfie()" class="button-inner">
+              <p>pular(dev)</p>
+              <ion-icon name="camera"></ion-icon>
+    </div>
+
+
       </ion-list>
     </form>
   </ion-content>

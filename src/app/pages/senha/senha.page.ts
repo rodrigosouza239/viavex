@@ -6,6 +6,7 @@ import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { LoadingController } from '@ionic/angular';
 import { ApiService  } from '../../services/api.service';
+import { ToastService } from './../../services/toast.service';
 @Component({
   selector: 'app-senha',
   templateUrl: './senha.page.html',
@@ -14,7 +15,29 @@ import { ApiService  } from '../../services/api.service';
 })
 export class SenhaPage{
   loginForm: FormGroup;
-  codigoRecebido = "";
+  celular: ""
+  senha:"";
+  CodigoConfirmacao: "";
+  Senha: "";
+  TipoEndereco: "";
+  Endereco:"";
+  Complemento:"";
+  Numero:"";
+  Bairro:"";
+  Cidade:"";
+  ChaveIdwallDocumentosEnviados:"";
+  ChaveIdwallRelatorio:"";
+  Cep:"";
+  TipoDeVeiculo:"";
+  Regioes:"";
+  ChaveIdqallDocumentoClrvEnviado:"";
+  ChaveIdwallRelatorioClrv:"";
+  URLCnhFrente:"";
+  URLCnhVerso:"";
+  Cnpj:"";
+  CodigoFirebase:"";
+  Latitude:"";
+  Longitude:"";
 
   validation_messages = {
     'celular': [
@@ -36,7 +59,8 @@ export class SenhaPage{
     public router: Router,
     public menu: MenuController,
     private service: ApiService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private toastService: ToastService,
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -59,25 +83,30 @@ export class SenhaPage{
     });
   }
 
-  
-  public  async selfie(){
-    // if(this.codigoRecebido){
-    //   let json = await this.service.EnviarDados();
-    //   if(json){
-    //     const loading = await this.loadingController.create({
-    //       cssClass: 'my-custom-class',
-    //       message: 'Por favor, espere...',
-    //       duration: 6000,
-    //       spinner:'lines'
-    //      });
-    //      await loading.present()
-    //      const{} = await loading.onDidDismiss();
-    //      this.router.navigate(['selfie']);
-    //   }else{
-    //     alert("CPF ERRADO!")
-    //   }
-    // }else{
-    //  alert("Preencha os campos!")
-    // }
- }
+  validateInputs() {
+    console.log(this.Senha);
+    let Senha = this.Senha.trim();
+    return (
+      this.Senha &&
+      Senha.length > 4
+    );
+  }
+
+  public async selfie() {
+    if(this.validateInputs()){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Por favor, espere...',
+      duration: 3000,
+      spinner:'lines'
+     });
+     await loading.present()
+    try{
+      //  const response = await this.service.Novasenha(this.Senha,this.senha)
+       this.router.navigate(['selfie']);
+    }catch(error){
+      this.toastService.presentToast("Celular INVALIDO");
+    }
+  }
+  }
 }

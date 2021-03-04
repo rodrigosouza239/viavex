@@ -6,6 +6,7 @@ import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { ApiService  } from '../../services/api.service';
 import { LoadingController } from '@ionic/angular';
+import { ToastService } from './../../services/toast.service';
 
 @Component({
   selector: 'app-sms',
@@ -38,7 +39,8 @@ export class SmsPage{
     public router: Router,
     public menu: MenuController,
     private service: ApiService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private toastService: ToastService,
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -61,25 +63,52 @@ export class SmsPage{
     });
   }
 
-  public  async haldlePageValidationsms(){
-    if(this.celular){
-      let json = await this.service.telefone(this.celular);
-      if(json){
-        const loading = await this.loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por favor, espere...',
-          duration: 6000,
-          spinner:'lines'
-         });
-         await loading.present()
-         const{} = await loading.onDidDismiss();
-        this.router.navigate(['validationsms']);
-      }else{
-        alert("CPF ERRADO!")
-      }
-    }else{
-     alert("Preencha os campos!")
+  validateInputs() {
+    console.log(this.celular);
+    let celular = this.celular.trim();
+    return (
+      this.celular &&
+      celular.length > 11
+    );
+  }
+
+  public async haldlePageValidationsms() {
+    if(this.validateInputs()){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Por favor, espere...',
+      duration: 3000,
+      spinner:'lines'
+     });
+     await loading.present()
+    try{
+      //  const response = await this.service.telefone(this.celular)
+       this.router.navigate(['validationsms']);
+    }catch(error){
+      this.toastService.presentToast("Celular INVALIDO");
     }
- }
+  }
+  }
+
+// public  async haldlePageValidationsms(){
+// if(this.celular){
+// const loading = await this.loadingController.create({
+// cssClass: 'my-custom-class',
+// message: 'Por favor, espere...',
+// duration: 5000,
+// spinner:'lines'
+//  });
+// //        await loading.present()
+// //        const{} = await loading.onDidDismiss();
+// //       let json = await this.service.telefone(this.celular);
+// //       if(json){
+// //         this.router.navigate(['validationsms']);
+// //       }else{
+// //         alert("CPF ERRADO!")
+// //       }
+// //     }else{
+// //      alert("Preencha os campos!")
+// }
+// }
 
 }
