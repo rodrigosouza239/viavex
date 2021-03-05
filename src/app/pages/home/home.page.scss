@@ -7,6 +7,9 @@ ion-header{
 }
 ion-toolbar{
   --background:#f1f1f5 ;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .containerBody{

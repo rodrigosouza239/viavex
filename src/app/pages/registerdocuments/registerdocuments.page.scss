@@ -6,7 +6,7 @@
 }
 
 ion-header{
-  background-color: #111427;
+  background-color: #ffffff;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -17,22 +17,22 @@ ion-header{
 
 ion-header ion-title{
   text-align: center;
-  font-size: 30px;
+  font-size: 27px;
   font-weight:800;
   text-align: center;
-  color:#c49cfd
+  color:#202020
 }
 
 ion-header ion-icon{
-  color:#c79efe;
-  width: 30px;
-  height: 30px;
+  color:#202020;
+  width: 20px;
+  height: 20px;
 }
 
 
 // Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
 .login-content {
-  --background:#111427;
+  --background:#ffffff;
   --padding-start: var(--page-margin);
   --padding-end: var(--page-margin);
   --padding-top: var(--page-margin);
@@ -45,16 +45,16 @@ ion-header ion-icon{
     display: flex;
     flex-direction: column;
 
-    margin-top: 50px;
+    margin-top: 20px;
   }
 
   .content-card .content-icon{
-    width: 130px;
-    height: 130px;
+    width: 90px;
+    height: 90px;
 
-    border: solid 2px #c49cfd;
+    border: solid 2px #ffffff;
     border-radius: 73px;
-    background-color: #130f41;
+    background-color: #fd8c40;
 
     justify-content:center ;
     align-items: center;
@@ -62,16 +62,16 @@ ion-header ion-icon{
   }
 
   .content-card .content-icon ion-icon{
-    color:#c79efe;
-    width: 70px;
-    height: 70px;
+    color:#ffffff;
+    width: 40px;
+    height: 40px;
   }
 
   .content-card p{
-    font-size: 25px;
+    font-size: 17px;
     font-weight:500;
     text-align: center;
-    color:#fff
+    color:#202020
   }
 
 
@@ -97,8 +97,8 @@ ion-footer{
   align-items: center;
 
 
-  background-color:#111427;
-  height: 80px;
+  background-color:#ffffff;
+  height: 70px;
 }
 
 
@@ -109,10 +109,10 @@ ion-footer a{
   width: 80%;
   border-radius: 8px;
 
-  background-color:#c699ff;
-  height: 50px;
-  color:#130f41;
+  background-color:#fd8c40;
+  height: 40px;
+  color:#ffffff;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
 }
 

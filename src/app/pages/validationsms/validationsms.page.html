@@ -21,18 +21,28 @@
             </div>
           </ng-container>
         </div>
+
+         
+        <div  (click)="AuthSenhas()"  class="button-inner">
+          <div class="button-innertitle">
+            <p>Confirmar código</p>
+          </div>
+          <div class="button-innerIcon">
+            <ion-icon name="checkmark-outline"></ion-icon>
+          </div>
+        </div>
       
-        <div  (click)="AuthSenhas()"   class="button-inner">
-          <p>Confirmar código</p>
-          <ion-icon name="checkmark-outline"></ion-icon>
-        </div>
 
-        <div  (click)="AuthSenhas()"   class="button-inner">
-          <p>Reenviar...Aguarde</p>
-          <ion-icon name="checkmark-outline"></ion-icon>
+        <div  (click)="AuthSenhas()"  class="button-inner">
+          <div class="button-innertitle">
+            <p>Reenviar...Aguarde</p>
+          </div>
+          <div class="button-innerIcon">
+            <ion-icon name="checkmark-outline"></ion-icon>
+          </div>
         </div>
- 
-
+    
+    
     
         <div class="error-container">
           <ng-container *ngFor="let validation of validation_messages.password">

@@ -39,7 +39,7 @@
 
   .inputs-list {
     --ion-item-background: var(--page-background);
-    margin-top: calc(var(--page-margin) * 16/1);
+    margin-top: calc(var(--page-margin) * 10/1);
 
 
     .input-item {
@@ -69,26 +69,35 @@
 
   
   .button-inner{
-    background:var(--app-backgroudbtn);
-      flex-direction: row;
-      align-items: center;
-      justify-content:space-between;
+    background:#fd8c40;
+    height: 60px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display:grid;
+    align-items: center;
+    .button-innertitle{
+       justify-content: center;
+       align-items: center;
       display: flex;
-      height: 60px;
-      border-radius: 8px;
-      padding-inline-end:30px;
-      padding-inline-start:30px;
-      margin-bottom: 20px;
-      p{
-        color:#fff;
-        font-size: 20px;
-        font-weight: bold;
-      }
-      ion-icon{
-        color:#fff;
-        font-size: 30px;
-      }
-  }
+    }
+    .button-innerIcon{
+      justify-content: flex-end;
+      align-items: flex-end;
+      display:flex;
+      position:relative;
+      margin-top: -60px;
+      margin-right: 20px;
+    } 
+    p{
+      color:#fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    ion-icon{
+      color:#fff;
+      font-size: 30px;
+    }
+}
 
   .other-auth-options-row {
     justify-content: space-between;
