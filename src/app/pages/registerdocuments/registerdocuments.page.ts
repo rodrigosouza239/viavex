@@ -13,7 +13,7 @@ export class RegisterdocumentsPage implements OnInit {
   ngOnInit() {
   }
 
-  registerhome(){
+  registerhom1(){
     this.router.navigateByUrl('registerhome')
   }
 

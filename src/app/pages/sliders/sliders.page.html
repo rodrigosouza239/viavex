@@ -1,9 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sliders</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-slides pager="true">
+    <ion-slide>
+      <div class="sliderimage">
+          <img src="../../../assets/banner1.jpg">
+      </div>
+      <br>
+      <div class="sliderTexts">
+        <h1>Cadastre-se como motorista</h1><br>
+        <a>Envie sua habilitação e seus dadaos para se<br>cadastrar</a>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div #map id="map"></div>
+    <br>
+    <div class="sliderTexts">
+      <h1>Obtenha cargas em uma de nossas filiais</h1><br>
+      <a>Estamos presente em quase todo o estado de São<br>Paulo</a>
+    </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="sliderimage">
+        <img src="../../../assets/banner2.jpg">
+    </div>
+    <br>
+    <div class="sliderTexts">
+      <h1>Recebimento garantido pelo serviços<br>prestados</h1><br>
+      <a>Você receberá diretamente na sua conta.</a>
+    </div>
+    <div class="btn">
+      <a (click)="btn()" >OK</a>
+    </div>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

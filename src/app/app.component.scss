@@ -1,6 +1,19 @@
 ion-header{
   background:#fd8c40;
   height: 200px;
+  .headerlogo{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 50px;
+  }
+  .headervesion{
+    justify-content:flex-start;
+    align-items:flex-start;
+    display: flex;
+    padding-inline-start: 10px;
+    margin-top: 60px;
+  }
 }
 
 ion-item{
