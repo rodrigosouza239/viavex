@@ -20,13 +20,15 @@ ion-header ion-title{
   font-size: 27px;
   font-weight:800;
   text-align: center;
-  color:#202020
+  color:#202020;
+  font-family:IBM Plex Sans;
 }
 
 ion-header ion-icon{
   color:#202020;
   width: 20px;
   height: 20px;
+  font-family:IBM Plex Sans;
 }
 
 
@@ -71,7 +73,8 @@ ion-header ion-icon{
     font-size: 17px;
     font-weight:500;
     text-align: center;
-    color:#202020
+    color:#202020;
+    font-family:IBM Plex Sans;
   }
 
 
@@ -113,6 +116,7 @@ ion-footer a{
   height: 40px;
   color:#ffffff;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 15px;
+  font-family:IBM Plex Sans;
 }
 

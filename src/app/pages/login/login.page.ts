@@ -92,7 +92,7 @@ export class LoginPage {
 
 
   public async haldlePagForgot() {
-    this.router.navigate(['forgot']);
+    this.router.navigate(['login']);
   }
 
   haldlePagMaps(){

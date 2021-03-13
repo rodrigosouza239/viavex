@@ -20,7 +20,8 @@ ion-header ion-title{
   font-size: 27px;
   font-weight:800;
   text-align: center;
-  color:#202020
+  color:#202020;
+  font-family:IBM Plex Sans;
 }
 
 ion-header ion-icon{
@@ -47,8 +48,7 @@ ion-header ion-icon{
     .headerIconBanner{
       width: 120px; justify-content: center; align-items: center; display: flex;
       img{
-       width: 150px;
-       height: 135px;
+      
       }
     }
     .headerIconTitles{
@@ -57,10 +57,12 @@ ion-header ion-icon{
       h1{
          color:#fff;
          font-size: 27px;
+         font-family:IBM Plex Sans;
       }
       a{
         color:#fff;
         font-size: 15px;
+        font-family:IBM Plex Sans;
       }
     }
   }
@@ -81,13 +83,15 @@ ion-header ion-icon{
   .content-card p{
     font-size: 27px;
     font-weight:700;
-    color:#ffffff
+    color:#ffffff;
+    font-family:IBM Plex Sans;
   }
 
   .content-card a{
     font-size: 17px;
     font-weight:300;
-    color:#fff
+    color:#fff;
+    font-family:IBM Plex Sans;
   }
 
 
@@ -103,6 +107,73 @@ ion-header ion-icon{
     --border-radius:27px;
     height: 55px;
   }
+
+  .overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+
+  .cameraPreview{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+  }
+
+  .image-overlay{
+    z-index: 1;
+    position: absolute;
+    left: 25%;
+    top:25%;
+    width: 50%;
+  }
+
+  #capture{
+    position: absolute;
+    bottom: 30px;
+    left: calc(50% - 25px);
+    width: 50px;
+    height: 50px;
+    z-index: 11;
+  }
+
+  #close{
+    position: absolute;
+    bottom: 30px;
+    left: calc(50% - 175px);
+    width: 50px;
+    height: 50px;
+    z-index: 11;
+  }
+
+
+ 
+
+  #flip{
+    position: absolute;
+    bottom: 30px;
+    left: calc(50% + 125px);
+    width: 50px;
+    height: 50px;
+    z-index: 11;
+  }
+
+  #flip::part(native){
+    border-radius: 30px;
+  }
+
+  #close::part(native){
+    border-radius: 30px;
+  }
+
+  #capture::part(native){
+    border-radius: 30px;
+  }
+
+
 
 
 }
@@ -130,5 +201,6 @@ ion-footer a{
   color:#ffffff;
   font-weight: bold;
   font-size: 15px;
+  font-family:IBM Plex Sans;
 }
 

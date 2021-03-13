@@ -21,15 +21,14 @@
           </ng-container>
         </div>
       </ion-list>
-      
-      <div  (click)="haldlePageLogin()" class="button-inner">
-        <div class="button-innertitle">
-          <p class="ion-text-center">Continuar</p>
-        </div>
-        <div class="button-innerIcon">
-          <ion-icon name="arrow-forward-outline"></ion-icon>
-        </div>
-      </div>
+ 
+      <a  (click)="haldlePageLogin()" class="button-inner">
+        
+        <p>Continuar</p>
+        <span>
+          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+        </span>
+      </a>
   
 
     

@@ -18,6 +18,9 @@ export class ValidationsmsPage {
   celular:'';
   cpf: '';
 
+  intervalVar: any = null;
+  timeleft: Date = new Date();
+
   codigo: '';
   validation_messages = {
     'celular': [
@@ -90,4 +93,19 @@ export class ValidationsmsPage {
     }
   }
   }
+
+  removeSeconds(time: Date, seconds: number = 1) {
+    return new Date(time.getTime() - (1000 * seconds));
+  }
+
+  ngOnInit() {
+    this.intervalVar = setInterval(() => {
+      this.timeleft = this.removeSeconds(this.timeleft, 1);
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalVar);
+  }
+  
 }

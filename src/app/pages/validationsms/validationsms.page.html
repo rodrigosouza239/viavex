@@ -22,25 +22,27 @@
           </ng-container>
         </div>
 
-         
-        <div  (click)="AuthSenhas()"  class="button-inner">
-          <div class="button-innertitle">
-            <p>Confirmar código</p>
-          </div>
-          <div class="button-innerIcon">
-            <ion-icon name="checkmark-outline"></ion-icon>
-          </div>
-        </div>
-      
 
-        <div  (click)="AuthSenhas()"  class="button-inner">
-          <div class="button-innertitle">
-            <p>Reenviar...Aguarde</p>
-          </div>
-          <div class="button-innerIcon">
+
+
+        <a   (click)="AuthSenhas()"  class="button-inner">
+        
+          <p>Confirmar código</p>
+          <span>
             <ion-icon name="checkmark-outline"></ion-icon>
-          </div>
-        </div>
+          </span>
+        </a>
+
+
+        <a   (click)="AuthSenhas()"  class="button-inner">
+          <p>Reenviar...Aguarde</p>
+          <span>
+            <h6>{{ timeleft | date : 'ss' }}</h6>
+          </span>
+        </a>
+
+         
+    
     
     
     
