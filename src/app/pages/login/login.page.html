@@ -8,7 +8,7 @@
           <br>
           <a>Informe seu CPF</a>
         </h2>
-        <ion-item lines="none" class="input-item">
+        <ion-item  lines="none" class="input-item">
           <ion-input [brmasker]="{person: true}" maxLength="14"  [(ngModel)]="cpf" prefix="+7" mask="000.000.00-00" placeholder="CPF" formControlName="cpf" clearInput autocapitalize="off"></ion-input>
         </ion-item>
         <div class="error-container">
@@ -21,18 +21,14 @@
           </ng-container>
         </div>
       </ion-list>
- 
-      <a  (click)="haldlePageLogin()" class="button-inner">
-        
-        <p>Continuar</p>
-        <span>
-          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-        </span>
-      </a>
-  
 
-    
-  
+          <a  (click)="login()" class="button-inner">
+            <p>Continuar</p>
+            <span>
+              <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+            </span>
+          </a>
+
 
       <a class="button-inner1"  (click)="haldlePagForgot()" >
         Não tenho uma conta

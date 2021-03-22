@@ -1,10 +1,11 @@
 import { Storage } from '@ionic/storage';
-import { LoadingController } from '@ionic/angular';
+import { isPlatform, LoadingController } from '@ionic/angular';
 import { Injectable } from  '@angular/core';
-import { HttpClient } from  '@angular/common/http';
-
+import { HttpClient,HttpHeaders  } from  '@angular/common/http';
 import { environment } from '../../environments/environment';
-
+import { from } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Plugins } from '@capacitor/core';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,62 +14,54 @@ export class ApiService {
 
   urlApi = environment.urlApi;
 
-public  async signIn(cpf:any){
-  return new Promise((resolve, reject) =>{
-    var headers = new Headers();
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/StatusDoCadastro/${cpf}`).subscribe(res =>{
-      resolve(JSON.stringify)
-    },(err) =>{
-      reject(err)
-    });
-     this.storage.set('clientes_cpfInfo', cpf)
-     console.log(cpf)
-  })
+
+  apiget(api:string){
+    let url = this.urlApi + api;
+    return this.httpClient.get(url).pipe(map(result => result))
 }
 
+// public async sign(cpf){
+//   return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/StatusDoCadastro/${cpf}`).map(res => res)
+//   this.storage.set('clientes_cpfInfo', cpf)
+// }
 
 
-public  telefone(celular:any) {
+public sign(cpf) {
   return new Promise(async (resolve, reject) =>{
     var headers = new Headers();
-    const cpf = await this.storage.get("clientes_cpfInfo");
-    console.log(cpf)
     headers.append('Access-Control-Allow-Origin' , '*');
     headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
     headers.append('Accept','application/json');
     headers.append('content-type','application/json');
-    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`).subscribe(res =>{
-      resolve(JSON.stringify)
-    },(err) =>{
-      reject(err)
-    });
+    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/StatusDoCadastro/${cpf}`).subscribe(
+      res =>{
+        resolve(JSON.stringify)
+      },(err) =>{
+        reject(err)
+      }
+    )
   })
 }
 
 
-
-public  sms() {
-  return new Promise(async (resolve, reject) =>{
-    var headers = new Headers();
-    const cpf = await this.storage.get("clientes_cpfInfo")
-    const celular = await this.storage.get('clientes_celular')
-    console.log(cpf)
-    console.log(celular)
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/EnviarConfirmacao/${celular}/${cpf}`).subscribe(res =>{
-      resolve(JSON.stringify)
-    },(err) =>{
-      reject(err)
-    });
-  })
+public async login(senha:any){
+  const cpf = await this.storage.get("clientes_cpfInfo");
+  return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/Login/${cpf}/${senha}`).toPromise(),
+  this.storage.set('clientes_cpfInfo', cpf)
 }
+
+public async telefone(celular:any){
+  const cpf = await this.storage.get("clientes_cpfInfo");
+  return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`).toPromise(),
+  this.storage.set('clientes_celular', celular)
+}
+
+public async sms(){
+  const cpf = await this.storage.get("clientes_cpfInfo");
+  const celular = await this.storage.get('clientes_celular');
+  return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`).toPromise()
+}
+
 
 public  Novasenha(
   celular,
@@ -147,6 +140,24 @@ public  foogot(){
 
 public  deleteProductById() {
 
+}
+
+
+
+getRequest(url) {
+  if(isPlatform('capacitor')){
+    const {HttpClient} = Plugins;
+    return from(HttpClient.request({
+      method: 'GET',
+      url
+    })
+    ).pipe(
+      map(result => result)
+    );
+
+  } else{
+    return this.httpClient.get(`https://api-cors-proxy-devdactic.herokuapp.com/${url}`);
+  }
 }
 
 

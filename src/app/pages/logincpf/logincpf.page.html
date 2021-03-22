@@ -1,0 +1,43 @@
+
+<ion-content class="login-content">
+  <form [formGroup]="loginForm" >
+    <ion-list class="inputs-list" lines="full">
+    
+      <h2 class="auth-title">
+        Log In
+        <br>
+        <a>Informe sua senha</a>
+      </h2>
+      <ion-item lines="none" class="input-item">
+        <ion-input [brmasker]="{person: true}" maxLength="6"  [(ngModel)]="senha" prefix="+7" mask="000.000.00-00" placeholder="Senha" formControlName="cpf" clearInput autocapitalize="off"></ion-input>
+        <a>Esqueci</a>
+      </ion-item>
+      <div class="error-container">
+        <ng-container *ngFor="let validation of validation_messages.cpf">
+          <div class="error-message"
+            *ngIf="loginForm.get('cpf').hasError(validation.type) && (loginForm.get('cpf').dirty || loginForm.get('cpf').touched)">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </ion-list>
+
+    <a  (click)="haldlePageLogin()" class="button-inner">
+      
+      <p>Entrar</p>
+      <span>
+        <ion-icon slot="end" name="enter-outline"></ion-icon>
+      </span>
+    </a>
+
+
+  
+
+
+    <a class="button-inner1"  (click)="haldlePagForgot()" >
+      Não tenho uma conta
+    </a>
+
+  </form>
+</ion-content>

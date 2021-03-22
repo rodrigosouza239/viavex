@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 const { CameraPreview } = Plugins;
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-
+import { Router } from '@angular/router';
 const { Camera } = Plugins;
+import { Storage } from '@ionic/storage';
 import { CameraPreviewOptions, CameraPreviewPictureOptions } from '@capacitor-community/camera-preview';
 @Component({
   selector: 'app-registerhome',
@@ -12,27 +13,46 @@ import { CameraPreviewOptions, CameraPreviewPictureOptions } from '@capacitor-co
 export class RegisterhomePage{
 image = null
 cameraActive = false;
+URLCnhFrente = null;
+URLCnhVerso = null;
 
 
-  constructor() {}
+  constructor(public router: Router,private storage: Storage) {}
 
   async takePicture() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Base64,
-      promptLabelPhoto:'ESCOLHA UMA FOTO DA GALERIA',
-      promptLabelPicture: 'TIRE UMA FOTO',
-      presentationStyle: 'fullscreen',
-      source:CameraSource.Camera,
-    });
-    
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    var imageUrl = image.webPath;
+    if(this.URLCnhFrente === this.URLCnhVerso){
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,
+        promptLabelPhoto:'ESCOLHA UMA FOTO DA GALERIA',
+        promptLabelPicture: 'TIRE UMA FOTO',
+        presentationStyle: 'fullscreen',
+        source:CameraSource.Camera,
+      });
+      var URLCnhFrente = image.base64String
+      this.URLCnhFrente = `data:image/jpeg;base64,${URLCnhFrente}`;
+      console.log('URLCnhFrente:',this.URLCnhFrente)
+      this.storage.set('clientes_senha',URLCnhFrente)
+    }else{
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,
+        promptLabelPhoto:'ESCOLHA UMA FOTO DA GALERIA',
+        promptLabelPicture: 'TIRE UMA FOTO',
+        presentationStyle: 'fullscreen',
+        source:CameraSource.Camera,
+      });
+      var URLCnhVerso = image.base64String
+      this.URLCnhVerso = `data:image/jpeg;base64,${URLCnhVerso}`;
+      console.log('URLCnhVerso:',this.URLCnhVerso)
+      this.storage.set('clientes_senha',URLCnhVerso)
+      this.router.navigate(['registerdocuments']);
+    }
   }
+
+
 
   camera(){
      const cameraPreviewOptions: CameraPreviewOptions ={
@@ -53,9 +73,9 @@ cameraActive = false;
      const cameraPreviewPictureOptions: CameraPreviewPictureOptions = {
            quality: 90
      };
-
      const result = await CameraPreview.capture(cameraPreviewPictureOptions);
      this.image = `data:image/jpeg;base64,${result.value}`;
+     console.log(this.image)
      this.stopCamera();
   }
 

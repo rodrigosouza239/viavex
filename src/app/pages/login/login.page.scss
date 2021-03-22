@@ -62,7 +62,6 @@
         align-items: center;
         color: var(--ion-color-danger);
         font-size: 14px;
-
         ion-icon {
           padding-inline-end: calc(var(--page-margin) / 2);
         }
@@ -72,6 +71,7 @@
 
   
        .button-inner{
+     
          background:#fd8c40;
          max-height: 50px;
 
@@ -93,6 +93,18 @@
            color:#fff;
          }
   }
+
+  .IsValid {
+    width: 100%;
+    background-color:#A9A9A9;
+    border:none;
+    cursor:pointer;
+    color:#FFFFFF;
+    font-size:25px;
+    font-weight:normal;
+    padding: 10px;
+    margin-top: 10px;
+}
 
 
 
@@ -164,3 +176,4 @@ ion-footer a{
   color:#fff;
   font-family:IBM Plex Sans;
 }
+

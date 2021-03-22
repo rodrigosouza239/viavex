@@ -7,6 +7,11 @@ import { Validacoes } from '../../shared/util/validacoes';
 import { ApiService  } from '../../services/api.service';
 import { LoadingController } from '@ionic/angular';
 import { ToastService } from './../../services/toast.service';
+
+import { HttpClient,HttpErrorResponse, } from  '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-validationsms',
   templateUrl: './validationsms.page.html',
@@ -20,6 +25,8 @@ export class ValidationsmsPage {
 
   intervalVar: any = null;
   timeleft: Date = new Date();
+
+  urlApi = environment.urlApi;
 
   codigo: '';
   validation_messages = {
@@ -44,6 +51,8 @@ export class ValidationsmsPage {
     private service: ApiService,
     public loadingController: LoadingController,
     private toastService: ToastService,
+    private httpClient: HttpClient,
+    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -75,24 +84,30 @@ export class ValidationsmsPage {
     );
   }
 
-
-  public async AuthSenhas() {
+  public async AuthSenhas(){
     if(this.validateInputs()){
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Por favor, espere...',
-      duration: 3000,
-      spinner:'lines'
-     });
-     await loading.present()
-    try{
-      //  const response = await this.service.sms()
-       this.router.navigate(['senha']);
-    }catch(error){
-      this.toastService.presentToast("Celular INVALIDO");
+      return new Promise(async resolve => {
+        const loading = await this.loadingController.create({
+          cssClass: 'my-custom-class',
+          message: 'Por favor, espere...',
+          duration: 5000,
+          spinner: "circles"
+        });
+        await loading.present()
+        const cpf = await this.storage.get("clientes_cpfInfo");
+        const celular = await this.storage.get('clientes_celular');
+        this.service.apiget(`/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`).subscribe(
+          response => {
+            this.router.navigate(['senha']);
+        this.toastService.presentToast("Codigo Valido com Sucesso");
+          }, (error) => {
+            this.toastService.presentToast("Codigo INVALIDO");
+          })
+      })
     }
   }
-  }
+
+
 
   removeSeconds(time: Date, seconds: number = 1) {
     return new Date(time.getTime() - (1000 * seconds));

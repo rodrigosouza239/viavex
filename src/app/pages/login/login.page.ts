@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { LoadingController } from '@ionic/angular';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../services/api';
 import { ToastService } from './../../services/toast.service';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +19,7 @@ export class LoginPage {
   loginForm: FormGroup;
   codigoRecebido = "";
   cpf: '';
+  api: '';
 
   validation_messages = {
     'celular': [
@@ -38,6 +39,8 @@ export class LoginPage {
     public loadingController: LoadingController,
     private toastService: ToastService,
     private service: ApiService,
+    private actRouter: ActivatedRoute,
+    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -60,6 +63,12 @@ export class LoginPage {
     });
   }
 
+  ngOnInit() {
+    this.actRouter.params.subscribe((data: any) => {
+    })
+  }
+
+
 
   validateInputs() {
     console.log(this.cpf);
@@ -70,24 +79,40 @@ export class LoginPage {
     );
   }
 
-
-
-  public async haldlePageLogin() {
-    if(this.validateInputs()){
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Por favor, espere...',
-      duration: 3000,
-      spinner:'lines'
-     });
-     await loading.present()
-    try{
-      //  const response = await this.service.signIn(this.cpf)
-       this.router.navigate(['sms']);
-    }catch(error){
-      this.toastService.presentToast("CPF INVALIDO");
-    }
+  async mensagem(chave, cor) {
+    const toast = await this.toastService.toastController.create({
+      message: chave,
+      duration: 2000,
+      color: cor
+    });
+    toast.present();
   }
+
+  public async login(form){
+    if(this.validateInputs()){
+      return new Promise(async resolve => {
+        const loading = await this.loadingController.create({
+          cssClass: 'my-custom-class',
+          message: 'Por favor, espere...',
+          duration: 5000,
+          spinner: "circles"
+        });
+        await loading.present()
+        this.service.apiget(`/pwa/AppViaVex/StatusDoCadastro/${this.cpf}`).subscribe(
+          response => {
+            if (response['chave'] === "CADASTROAPROVADO") {
+              this.mensagem(response['chave'], 'success');
+              this.router.navigate(['logincpf']);
+            } else {
+              this.mensagem(response['chave'], 'danger')
+              this.router.navigate(['sms']);
+            }
+          }, (error) => {
+            console.error('Error Login', error);
+          }),
+          this.storage.set('clientes_cpfInfo', this.cpf)
+      })
+    }
   }
 
 
@@ -95,8 +120,15 @@ export class LoginPage {
     this.router.navigate(['login']);
   }
 
-  haldlePagMaps(){
+  haldlePagMaps() {
     this.router.navigate(['home'])
+  }
+
+  getCor(){
+
+  }
+  cnhVerson(){
+    
   }
 }
 

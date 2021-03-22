@@ -7,6 +7,7 @@ import { Validacoes } from '../../shared/util/validacoes';
 import { LoadingController } from '@ionic/angular';
 import { ApiService  } from '../../services/api.service';
 import { ToastService } from './../../services/toast.service';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-senha',
   templateUrl: './senha.page.html',
@@ -15,29 +16,9 @@ import { ToastService } from './../../services/toast.service';
 })
 export class SenhaPage{
   loginForm: FormGroup;
-  celular: ""
-  senha:"";
   CodigoConfirmacao: "";
   Senha: "";
-  TipoEndereco: "";
-  Endereco:"";
-  Complemento:"";
-  Numero:"";
-  Bairro:"";
-  Cidade:"";
-  ChaveIdwallDocumentosEnviados:"";
-  ChaveIdwallRelatorio:"";
-  Cep:"";
-  TipoDeVeiculo:"";
-  Regioes:"";
-  ChaveIdqallDocumentoClrvEnviado:"";
-  ChaveIdwallRelatorioClrv:"";
-  URLCnhFrente:"";
-  URLCnhVerso:"";
-  Cnpj:"";
-  CodigoFirebase:"";
-  Latitude:"";
-  Longitude:"";
+  SenhaConfime: "";
 
   validation_messages = {
     'celular': [
@@ -45,7 +26,7 @@ export class SenhaPage{
       { type: 'pattern', message: 'Entre com um celular válido (xx999999999).' }
     ],
     'password': [
-      { type: 'required', message: 'Informe o código Senha.' },
+      { type: 'required', message: 'Informe Senha.' },
       { type: 'minlength', message: 'Informe o código SMS corretamente.' }
     ],
     'codigo': [
@@ -58,9 +39,9 @@ export class SenhaPage{
   constructor(
     public router: Router,
     public menu: MenuController,
-    private service: ApiService,
     public loadingController: LoadingController,
     private toastService: ToastService,
+    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -92,21 +73,23 @@ export class SenhaPage{
     );
   }
 
-  public async selfie() {
+
+  public async selfie(){
     if(this.validateInputs()){
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Por favor, espere...',
-      duration: 3000,
-      spinner:'lines'
-     });
-     await loading.present()
-    try{
-      //  const response = await this.service.Novasenha(this.Senha,this.senha)
-       this.router.navigate(['selfie']);
-    }catch(error){
-      this.toastService.presentToast("Celular INVALIDO");
+      return new Promise(async resolve => {
+        const loading = await this.loadingController.create({
+          cssClass: 'my-custom-class',
+          message: 'Por favor, espere...',
+          duration: 5000,
+          spinner: "circles"
+        });
+        await loading.present()
+        this.router.navigate(['selfie']);
+        this.toastService.presentToast("Senha Criada com Sucesso");
+        this.storage.set('clientes_senha',this.Senha)
+        this.storage.set('clientes_senha',this.SenhaConfime),
+        console.log(this.Senha)
+      })
     }
-  }
   }
 }

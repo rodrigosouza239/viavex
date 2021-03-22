@@ -55,6 +55,10 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
+  {
+    path: 'logincpf',
+    loadChildren: () => import('./pages/logincpf/logincpf.module').then( m => m.LogincpfPageModule)
+  },
 ];
 
 @NgModule({

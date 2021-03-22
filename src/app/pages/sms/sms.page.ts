@@ -4,9 +4,13 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
-import { ApiService  } from '../../services/api.service';
+import { ApiService  } from '../../services/api';
 import { LoadingController } from '@ionic/angular';
 import { ToastService } from './../../services/toast.service';
+
+import { HttpClient,HttpErrorResponse, } from  '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-sms',
@@ -18,6 +22,8 @@ export class SmsPage{
   loginForm: FormGroup;
   codigoRecebido = "";
   celular: '';
+
+  urlApi = environment.urlApi;
 
   validation_messages = {
     'celular': [
@@ -41,6 +47,8 @@ export class SmsPage{
     private service: ApiService,
     public loadingController: LoadingController,
     private toastService: ToastService,
+    private httpClient: HttpClient,
+    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -72,43 +80,26 @@ export class SmsPage{
     );
   }
 
-  public async haldlePageValidationsms() {
+  public async haldlePageValidationsms(){
     if(this.validateInputs()){
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Por favor, espere...',
-      duration: 3000,
-      spinner:'lines'
-     });
-     await loading.present()
-    try{
-      //  const response = await this.service.telefone(this.celular)
-       this.router.navigate(['validationsms']);
-    }catch(error){
-      this.toastService.presentToast("Celular INVALIDO");
+      return new Promise(async resolve => {
+        const loading = await this.loadingController.create({
+          cssClass: 'my-custom-class',
+          message: 'Por favor, espere...',
+          duration: 5000,
+          spinner: "circles"
+        });
+        await loading.present()
+        const cpf = await this.storage.get("clientes_cpfInfo");
+        this.service.apiget(`/pwa/AppViaVex/SolicitarCodigo/${this.celular}/${cpf}`).subscribe(
+          response => {
+            this.router.navigate(['validationsms']);
+            this.toastService.presentToast("Codigo enviado com sucesso");
+          }, (error) => {
+            this.toastService.presentToast("Codigo INVALIDO");
+          }),
+          this.storage.set('clientes_celular',this.celular)
+      })
     }
   }
-  }
-
-// public  async haldlePageValidationsms(){
-// if(this.celular){
-// const loading = await this.loadingController.create({
-// cssClass: 'my-custom-class',
-// message: 'Por favor, espere...',
-// duration: 5000,
-// spinner:'lines'
-//  });
-// //        await loading.present()
-// //        const{} = await loading.onDidDismiss();
-// //       let json = await this.service.telefone(this.celular);
-// //       if(json){
-// //         this.router.navigate(['validationsms']);
-// //       }else{
-// //         alert("CPF ERRADO!")
-// //       }
-// //     }else{
-// //      alert("Preencha os campos!")
-// }
-// }
-
 }
