@@ -9,7 +9,7 @@
         <a>Informe sua senha</a>
       </h2>
       <ion-item lines="none" class="input-item">
-        <ion-input [brmasker]="{person: true}" maxLength="6"  [(ngModel)]="senha" prefix="+7" mask="000.000.00-00" placeholder="Senha" formControlName="cpf" clearInput autocapitalize="off"></ion-input>
+        <ion-input type="password"  maxLength="6"  [(ngModel)]="senha" prefix="+7"  placeholder="Senha" formControlName="cpf" clearInput autocapitalize="off"></ion-input>
         <a>Esqueci</a>
       </ion-item>
       <div class="error-container">

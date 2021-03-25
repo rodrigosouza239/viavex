@@ -27,7 +27,7 @@ export class SenhaPage{
     ],
     'password': [
       { type: 'required', message: 'Informe Senha.' },
-      { type: 'minlength', message: 'Informe o código SMS corretamente.' }
+      { type: 'minlength', message: 'Informe o código Senha corretamente.' }
     ],
     'codigo': [
       { type: 'required', message: 'codigo é obrigatório.' },

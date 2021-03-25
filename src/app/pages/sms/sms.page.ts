@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
-import { ApiService  } from '../../services/api';
+import { ApiService  } from '../../services/api.service';
 import { LoadingController } from '@ionic/angular';
 import { ToastService } from './../../services/toast.service';
 
@@ -47,8 +47,6 @@ export class SmsPage{
     private service: ApiService,
     public loadingController: LoadingController,
     private toastService: ToastService,
-    private httpClient: HttpClient,
-    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -90,15 +88,9 @@ export class SmsPage{
           spinner: "circles"
         });
         await loading.present()
-        const cpf = await this.storage.get("clientes_cpfInfo");
-        this.service.apiget(`/pwa/AppViaVex/SolicitarCodigo/${this.celular}/${cpf}`).subscribe(
-          response => {
-            this.router.navigate(['validationsms']);
-            this.toastService.presentToast("Codigo enviado com sucesso");
-          }, (error) => {
-            this.toastService.presentToast("Codigo INVALIDO");
-          }),
-          this.storage.set('clientes_celular',this.celular)
+        this.service.sms(this.celular)
+        this.toastService.presentToast("Codigo enviado com sucesso");
+        this.router.navigate(['validationsms']);
       })
     }
   }

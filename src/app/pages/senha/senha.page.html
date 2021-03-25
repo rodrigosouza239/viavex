@@ -10,10 +10,10 @@
           <a>Agora crie uma senha de acesso</a>
         </h2>
         <ion-item lines="none" class="input-item">
-          <ion-input [(ngModel)]="Senha"  placeholder="Senha" formControlName="password" clearInput autocapitalize="off"></ion-input>
+          <ion-input [(ngModel)]="Senha"  type="password"  placeholder="Senha" formControlName="password" clearInput autocapitalize="off"></ion-input>
         </ion-item>
         <ion-item lines="none" class="input-item">
-          <ion-input [(ngModel)]="senha" formControlName="password"    placeholder="Confirmar a senha" clearInput autocapitalize="off"></ion-input>
+          <ion-input [(ngModel)]="senha" formControlName="password"  type="password"    placeholder="Confirmar a senha" clearInput autocapitalize="off"></ion-input>
         </ion-item>
         <div class="error-container">
           <ng-container *ngFor="let validation of validation_messages.password">

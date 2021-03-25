@@ -5,9 +5,9 @@ import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { LoadingController } from '@ionic/angular';
-import { ApiService } from '../../services/api';
+import { ApiService } from '../../services/api.service';
 import { ToastService } from './../../services/toast.service';
-import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-login',
@@ -40,7 +40,6 @@ export class LoginPage {
     private toastService: ToastService,
     private service: ApiService,
     private actRouter: ActivatedRoute,
-    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -98,7 +97,7 @@ export class LoginPage {
           spinner: "circles"
         });
         await loading.present()
-        this.service.apiget(`/pwa/AppViaVex/StatusDoCadastro/${this.cpf}`).subscribe(
+        this.service.login(this.cpf).then(
           response => {
             if (response['chave'] === "CADASTROAPROVADO") {
               this.mensagem(response['chave'], 'success');
@@ -109,8 +108,7 @@ export class LoginPage {
             }
           }, (error) => {
             console.error('Error Login', error);
-          }),
-          this.storage.set('clientes_cpfInfo', this.cpf)
+          })
       })
     }
   }

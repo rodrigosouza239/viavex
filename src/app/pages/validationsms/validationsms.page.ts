@@ -10,7 +10,6 @@ import { ToastService } from './../../services/toast.service';
 
 import { HttpClient,HttpErrorResponse, } from  '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-validationsms',
@@ -26,7 +25,6 @@ export class ValidationsmsPage {
   intervalVar: any = null;
   timeleft: Date = new Date();
 
-  urlApi = environment.urlApi;
 
   codigo: '';
   validation_messages = {
@@ -94,15 +92,9 @@ export class ValidationsmsPage {
           spinner: "circles"
         });
         await loading.present()
-        const cpf = await this.storage.get("clientes_cpfInfo");
-        const celular = await this.storage.get('clientes_celular');
-        this.service.apiget(`/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`).subscribe(
-          response => {
-            this.router.navigate(['senha']);
+        this.service.validationsms()
+        this.router.navigate(['senha']);
         this.toastService.presentToast("Codigo Valido com Sucesso");
-          }, (error) => {
-            this.toastService.presentToast("Codigo INVALIDO");
-          })
       })
     }
   }

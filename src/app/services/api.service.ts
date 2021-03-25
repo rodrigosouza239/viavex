@@ -1,192 +1,86 @@
 import { Storage } from '@ionic/storage';
 import { isPlatform, LoadingController } from '@ionic/angular';
 import { Injectable } from  '@angular/core';
-import { HttpClient,HttpHeaders  } from  '@angular/common/http';
+import { HttpClient,HttpHeaders,HttpErrorResponse  } from  '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { from,throwError} from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { Plugins } from '@capacitor/core';
+import { ToastService } from '../services/toast.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  constructor(private storage: Storage,public loadingController: LoadingController,private httpClient: HttpClient) { }
+  constructor(private storage: Storage,public loadingController: LoadingController,private httpClient: HttpClient,   private toastService: ToastService,) { }
 
   urlApi = environment.urlApi;
 
-
-  apiget(api:string){
-    let url = this.urlApi + api;
-    return this.httpClient.get(url).pipe(map(result => result))
-}
-
-// public async sign(cpf){
-//   return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/StatusDoCadastro/${cpf}`).map(res => res)
-//   this.storage.set('clientes_cpfInfo', cpf)
-// }
-
-
-public sign(cpf) {
-  return new Promise(async (resolve, reject) =>{
-    var headers = new Headers();
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/StatusDoCadastro/${cpf}`).subscribe(
-      res =>{
-        resolve(JSON.stringify)
-      },(err) =>{
-        reject(err)
-      }
-    )
-  })
-}
-
-
-public async login(senha:any){
-  const cpf = await this.storage.get("clientes_cpfInfo");
-  return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/Login/${cpf}/${senha}`).toPromise(),
-  this.storage.set('clientes_cpfInfo', cpf)
-}
-
-public async telefone(celular:any){
-  const cpf = await this.storage.get("clientes_cpfInfo");
-  return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`).toPromise(),
-  this.storage.set('clientes_celular', celular)
-}
-
-public async sms(){
-  const cpf = await this.storage.get("clientes_cpfInfo");
-  const celular = await this.storage.get('clientes_celular');
-  return this.httpClient.get<any>(`${this.urlApi}/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`).toPromise()
-}
-
-
-public  Novasenha(
-  celular,
-  cpf,
-  CodigoConfirmacao,
-  Senha,
-  TipoEndereco,
-  Endereco,
-  Complemento,
-  Numero,
-  Bairro,
-  Cidade,
-  ChaveIdwallDocumentosEnviados,
-  ChaveIdwallRelatorio,
-  Cep,
-  TipoDeVeiculo,
-  Regioes,
-  ChaveIdqallDocumentoClrvEnviado,
-  ChaveIdwallRelatorioClrv,
-  URLCnhFrente,
-  URLCnhVerso,
-  Cnpj,
-  CodigoFirebase,
-  Latitude,
-  Longitude){
-  return new Promise(async (resolve, reject) =>{
-    var headers = new Headers();
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/EnviarDados/${celular}/${cpf}/${CodigoConfirmacao}/${Senha}/${TipoEndereco}/${Endereco}/${Complemento}/${Numero}/${Bairro}/${Cidade}/${ChaveIdwallDocumentosEnviados}/${ChaveIdwallRelatorio}/${Cep}/${TipoDeVeiculo}/${Regioes}/${ChaveIdqallDocumentoClrvEnviado}/${ChaveIdwallRelatorioClrv}/${URLCnhFrente}/${URLCnhVerso}/${Cnpj}/${CodigoFirebase}/${Latitude}/${Longitude}`).subscribe(res =>{
-      resolve(JSON.stringify)
-    },(err) =>{
-      reject(err)
+  async login(cpf:any,) {
+     const req = await fetch(`${this.urlApi}/pwa/AppViaVex/StatusDoCadastro/${cpf}`, {
+    method: 'GET',
+    mode: 'cors',
+   headers: {
+    'Content-Type': 'application/json'
+   },
+   redirect: 'follow',
     });
-  })
-}
+    this.storage.set('clientes_cpfInfo',cpf)
+    const json = await req.json();
+    return json;
+   }
 
-public  ListaDeFiliais(lat,lon,cpf) {
-  return new Promise(async (resolve, reject) =>{
-    var headers = new Headers();
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/ListaDeFiliais/${lat}/${lon}/${cpf}`).subscribe(res =>{
-      resolve(JSON.stringify)
-    },(err) =>{
-      reject(err)
-    });
-  })
-}
-
-
-public Perfil() {
-  return new Promise(async (resolve, reject) =>{
-    var headers = new Headers();
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    this.httpClient.get(`${this.urlApi}/pwa/AppViaVex/Perfil`).subscribe(res =>{
-      resolve(JSON.stringify)
-    },(err) =>{
-      reject(err)
-    });
-  })
-}
-
-public  foogot(){
-  
-}
-
-
-
-public  deleteProductById() {
-
-}
-
-
-
-getRequest(url) {
-  if(isPlatform('capacitor')){
-    const {HttpClient} = Plugins;
-    return from(HttpClient.request({
-      method: 'GET',
-      url
-    })
-    ).pipe(
-      map(result => result)
-    );
-
-  } else{
-    return this.httpClient.get(`https://api-cors-proxy-devdactic.herokuapp.com/${url}`);
+  async sms(celular:any,) {
+  const cpf = await this.storage.get("clientes_cpfInfo");
+  const req = await fetch(`${this.urlApi}/pwa/AppViaVex/SolicitarCodigo/${celular}/${cpf}`, {
+   method: 'GET',
+   mode: 'cors',
+  headers: {
+   'Content-Type': 'application/json'
   }
-}
+   })
+   const json = await req.json();
+   return json;
+  }
 
+  async sign(senha:any,) {
+    const cpf = await this.storage.get("clientes_cpfInfo");
+    const req = await fetch(`${this.urlApi}/pwa/AppViaVex/Login/${cpf}/${senha}`, {
+     method: 'GET',
+     mode: 'cors',
+    headers: {
+     'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+     })
+     const json = await req.json();
+     return json;
+    }
 
+    async validationsms() {
+      const cpf = await this.storage.get("clientes_cpfInfo");
+      const celular = await this.storage.get('clientes_celular');
+      const req = await fetch(`${this.urlApi}/pwa/AppViaVex/EnviarConfirmacao/${celular}/${cpf}`, {
+       method: 'GET',
+      headers: {
+       'Content-Type': 'application/json'
+      },
+       })
+       const json = await req.json();
+       return json;
+      }
 
-
-
-//   async foogot(cpf:any,telefone:any,novaSenha) {
-//     const req = await fetch(`${BASE_API}/pwa/AppViaVex/AlterarSenha/${cpf}/${telefone}/${novaSenha}`, {
-//       method: 'GET',
-//       mode: 'cors',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       redirect: 'follow',
-//     })
-//     const json = await req.json();
-//     return json;
-//   }
-
-//    handleError(error: HttpErrorResponse) {
-//     let errorMessage = '';
-//     if (error.error instanceof ErrorEvent) {
-//       // Erro ocorreu no lado do client
-//       errorMessage = error.error.message;
-//     } else {
-//       // Erro ocorreu no lado do servidor
-//       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-//     }
-//     console.log(errorMessage);
-//     return throwError(errorMessage);
-//   };
+       // Manipulação de erros
+ async handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Erro ocorreu no lado do client
+      errorMessage = error.error.message;
+    } else {
+      // Erro ocorreu no lado do servidor
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  };
+  
 }

@@ -8,8 +8,6 @@ import { LoadingController } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
 import { ToastService } from './../../services/toast.service';
 import { HttpClient,HttpErrorResponse, } from  '@angular/common/http';
-import { Storage } from '@ionic/storage';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-logincpf',
@@ -22,7 +20,6 @@ export class LogincpfPage{
   codigoRecebido = "";
   senha: '';
 
-  urlApi = environment.urlApi;
 
   validation_messages = {
     'celular': [
@@ -42,8 +39,6 @@ export class LogincpfPage{
     public loadingController: LoadingController,
     private toastService: ToastService,
     private service: ApiService,
-    private httpClient: HttpClient,
-    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -87,8 +82,7 @@ export class LogincpfPage{
           spinner: "circles"
         });
         await loading.present()
-        const cpf = await this.storage.get("clientes_cpfInfo");
-        this.service.apiget(`/pwa/AppViaVex/Login/${cpf}/${this.senha}`).subscribe(
+        this.service.sign(this.senha).then(
           response => {
             this.router.navigate(['home'])
             this.toastService.presentToast("Seja bem Vindo!");
