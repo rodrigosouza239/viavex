@@ -29,6 +29,12 @@ ion-toolbar{
     font-size: 40px;
   } 
 
+  .containerbodyleft img{
+    width: 160px;
+    height: 90px;
+    border-radius: 100%;
+  }
+
   .containerbodyleft p{
     font-size: 26px;
     color:black;
@@ -36,10 +42,10 @@ ion-toolbar{
   }
 
   .containerbodyleft h1{
-    font-size: 30px;
+    font-size: 27px;
     color:black;
     font-weight: 800;
-    font-family:IBM Plex Sans;
+    font-family:IBM Plex Sans
   }
 
   .containerSeach{

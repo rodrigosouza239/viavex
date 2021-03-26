@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Storage } from '@ionic/storage';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -25,7 +26,7 @@ export class HomePage implements OnInit{
   longitude:string = "";
   urlSelfie:string = "";
   id:string = "";
-  constructor(private router:Router, private service: ApiService,private storage: Storage,) { }
+  constructor(private router:Router, private service: ApiService,private storage: Storage, public loadingController: LoadingController,) { }
 
   async ngOnInit() {
     const dadosString = await this.storage.get("cliente");
@@ -34,12 +35,26 @@ export class HomePage implements OnInit{
     this.nome = dados.nome
     this.cpf = dados.cpf
     this.celular = dados.celular
+    this.urlSelfie = `data:image/png;base64,${dados.urlSelfie}`;
   }
 
  
 
   maps(){
-    this.router.navigate(['maps'])
+    return new Promise(async resolve => {
+      const loading = await this.loadingController.create({
+        cssClass: 'my-custom-class',
+        message: 'Por favor, espere...',
+        duration: 5000,
+        spinner: "circles"
+      });
+      await loading.present()
+      this.service.ofertacargas().then(
+        response => {
+          this.router.navigate(['maps'])
+          console.log(response)
+        })
+    })
   }
 
   public async login(form){

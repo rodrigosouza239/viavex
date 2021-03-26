@@ -52,6 +52,7 @@ export class ApiService {
     },
     redirect: 'follow',
      })
+     this.storage.set('clientes_senhaInfo',senha)
      const json = await req.json();
      return json;
     }
@@ -80,6 +81,21 @@ export class ApiService {
         console.log(req)
          return json;
         }
+
+        async ofertacargas() {
+          const cpf = await this.storage.get("clientes_cpfInfo");
+          const celular = await this.storage.get('clientes_celular');
+          const senha = await this.storage.get('clientes_senhaInfo');
+          const req = await fetch(`${this.urlApi}/pwa/AppViaVex/OfertarCarga/${cpf}/${celular}/${senha}`, {
+           method: 'GET',
+          headers: {
+           'Content-Type': 'application/json'
+          },
+           });
+           const json = await req.json();
+          console.log(req)
+           return json;
+          }
 
        // Manipulação de erros
  async handleError(error: HttpErrorResponse) {
