@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { ApiService } from '../../services/api.service';
 import { ToastService } from './../../services/toast.service';
 import { HttpClient,HttpErrorResponse, } from  '@angular/common/http';
@@ -19,7 +20,11 @@ export class LogincpfPage{
   loginForm: FormGroup;
   codigoRecebido = "";
   senha: '';
+  data: '';
+  id: string = "";
+  nome : string = "";
 
+  perfil : any = [];
 
   validation_messages = {
     'celular': [
@@ -39,6 +44,8 @@ export class LogincpfPage{
     public loadingController: LoadingController,
     private toastService: ToastService,
     private service: ApiService,
+    private actRouter: ActivatedRoute,
+    private storage: Storage
   ) {
     this.loginForm = new FormGroup({
       'celular': new FormControl('', Validators.compose([
@@ -71,7 +78,7 @@ export class LogincpfPage{
     );
   }
 
-
+ 
   public async haldlePageLogin(){
     if(this.validateInputs()){
       return new Promise(async resolve => {
@@ -83,9 +90,12 @@ export class LogincpfPage{
         });
         await loading.present()
         this.service.sign(this.senha).then(
-          response => {
+          response=>{
             this.router.navigate(['home'])
             this.toastService.presentToast("Seja bem Vindo!");
+            let dadosString = JSON.stringify(response[0])
+            console.log('dados:',dadosString)
+            this.storage.set('cliente',dadosString)
           }, (error) => {
             this.toastService.presentToast("Senha invalida");
           })

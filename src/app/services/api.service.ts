@@ -69,6 +69,18 @@ export class ApiService {
        return json;
       }
 
+      async perfil() {
+        const req = await fetch(`${this.urlApi}/pwa/AppViaVex/Perfil`, {
+         method: 'POST',
+        headers: {
+         'Content-Type': 'application/json'
+        },
+         });
+         const json = await req.json();
+        console.log(req)
+         return json;
+        }
+
        // Manipulação de erros
  async handleError(error: HttpErrorResponse) {
     let errorMessage = '';
