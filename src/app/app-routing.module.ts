@@ -59,6 +59,26 @@ const routes: Routes = [
     path: 'logincpf',
     loadChildren: () => import('./pages/logincpf/logincpf.module').then( m => m.LogincpfPageModule)
   },
+  {
+    path: 'registerhomeselfie',
+    loadChildren: () => import('./pages/registerhomeselfie/registerhomeselfie.module').then( m => m.RegisterhomeselfiePageModule)
+  },
+  {
+    path: 'registerhomeenviar',
+    loadChildren: () => import('./pages/registerhomeenviar/registerhomeenviar.module').then( m => m.RegisterhomeenviarPageModule)
+  },
+  {
+    path: 'selfiecamera',
+    loadChildren: () => import('./pages/selfiecamera/selfiecamera.module').then( m => m.SelfiecameraPageModule)
+  },
+  {
+    path: 'pageenviar',
+    loadChildren: () => import('./pages/pageenviar/pageenviar.module').then( m => m.PageenviarPageModule)
+  },
+  {
+    path: 'pageendereco',
+    loadChildren: () => import('./pages/pageendereco/pageendereco.module').then( m => m.PageenderecoPageModule)
+  },
 ];
 
 @NgModule({

@@ -4,39 +4,31 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
-import { ApiService  } from '../../services/api.service';
 import { LoadingController } from '@ionic/angular';
+import { ApiService  } from '../../services/api.service';
 import { ToastService } from './../../services/toast.service';
-
-import { HttpClient,HttpErrorResponse, } from  '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'app-validationsms',
-  templateUrl: './validationsms.page.html',
-  styleUrls: ['./validationsms.page.scss'],
+  selector: 'app-pageendereco',
+  templateUrl: './pageendereco.page.html',
+  styleUrls: ['./pageendereco.page.scss'],
   providers: [ApiService],
 })
-export class ValidationsmsPage {
+export class PageenderecoPage {
   loginForm: FormGroup;
-  celular:'';
-  cpf: '';
+  CodigoConfirmacao: "";
+  Senha: "";
+  SenhaConfime: "";
 
-  intervalVar: any = null;
-  timeleft: Date = new Date();
-
-  
-
-
-  codigo: '';
   validation_messages = {
     'celular': [
       { type: 'required', message: 'Celular é obrigatório.' },
       { type: 'pattern', message: 'Entre com um celular válido (xx999999999).' }
     ],
     'password': [
-      { type: 'required', message: 'Informe o código SMS.' },
-      { type: 'minlength', message: 'Informe o código SMS corretamente.' }
+      { type: 'required', message: 'Informe Senha.' },
+      { type: 'minlength', message: 'Informe o código Senha corretamente.' }
     ],
     'codigo': [
       { type: 'required', message: 'codigo é obrigatório.' },
@@ -48,10 +40,8 @@ export class ValidationsmsPage {
   constructor(
     public router: Router,
     public menu: MenuController,
-    private service: ApiService,
     public loadingController: LoadingController,
     private toastService: ToastService,
-    private httpClient: HttpClient,
     private storage: Storage
   ) {
     this.loginForm = new FormGroup({
@@ -76,15 +66,16 @@ export class ValidationsmsPage {
   }
 
   validateInputs() {
-    console.log(this.codigo);
-    let codigo = this.codigo.trim();
+    console.log(this.Senha);
+    let Senha = this.Senha.trim();
     return (
-      this.codigo &&
-      codigo.length > 3
+      this.Senha &&
+      Senha.length > 4
     );
   }
 
-  public async AuthSenhas(){
+
+  public async selfie(){
     if(this.validateInputs()){
       return new Promise(async resolve => {
         const loading = await this.loadingController.create({
@@ -93,31 +84,13 @@ export class ValidationsmsPage {
           duration: 5000,
           spinner: "circles"
         });
-          this.service.validationsms().then(
-            response =>{
-              this.router.navigate(['senha']);
-              this.toastService.presentToast("Codigo Valido com Sucesso");
-              console.log(response)
-            }
-          ) 
+        await loading.present()
+        this.router.navigate(['selfie']);
+        this.toastService.presentToast("Senha Criada com Sucesso");
+        this.storage.set('clientes_senha',this.Senha)
+        this.storage.set('clientes_senha',this.SenhaConfime),
+        console.log(this.Senha)
       })
     }
   }
-
-
-
-  removeSeconds(time: Date, seconds: number = 1) {
-    return new Date(time.getTime() - (1000 * seconds));
-  }
-
-  ngOnInit() {
-    this.intervalVar = setInterval(() => {
-      this.timeleft = this.removeSeconds(this.timeleft, 1);
-    }, 1000);
-  }
-
-  ngOnDestroy() {
-    clearInterval(this.intervalVar);
-  }
-  
 }

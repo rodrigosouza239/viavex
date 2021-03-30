@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { _ } from 'core-js';
 import { Validacoes } from '../../shared/util/validacoes';
 import { ApiService  } from '../../services/api.service';
 import { LoadingController } from '@ionic/angular';
 import { ToastService } from './../../services/toast.service';
-
 import { HttpClient,HttpErrorResponse, } from  '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../../environments/environment';
+import * as yup from 'yup';
+
+
 
 @Component({
   selector: 'app-sms',
@@ -41,6 +43,8 @@ export class SmsPage{
     ],
   };
 
+  
+
   constructor(
     public router: Router,
     public menu: MenuController,
@@ -69,6 +73,7 @@ export class SmsPage{
     });
   }
 
+
   validateInputs() {
     console.log(this.celular);
     let celular = this.celular.trim();
@@ -76,6 +81,10 @@ export class SmsPage{
       this.celular &&
       celular.length > 11
     );
+  }
+
+  codigosms = {
+    codigo: String,
   }
 
   public async haldlePageValidationsms(){
@@ -88,9 +97,12 @@ export class SmsPage{
           spinner: "circles"
         });
         await loading.present()
-        this.service.sms(this.celular)
-        this.toastService.presentToast("Codigo enviado com sucesso");
-        this.router.navigate(['validationsms']);
+        this.service.sms(this.celular).then(
+          response =>{
+            this.toastService.presentToast("Codigo enviado com sucesso");
+            this.router.navigate(['validationsms']);
+          }
+        )
       })
     }
   }

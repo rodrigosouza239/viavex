@@ -5,22 +5,26 @@ import { Router } from '@angular/router';
 const { Camera } = Plugins;
 import { Storage } from '@ionic/storage';
 import { CameraPreviewOptions, CameraPreviewPictureOptions } from '@capacitor-community/camera-preview';
+
 @Component({
-  selector: 'app-registerhome',
-  templateUrl: './registerhome.page.html',
-  styleUrls: ['./registerhome.page.scss'],
+  selector: 'app-selfiecamera',
+  templateUrl: './selfiecamera.page.html',
+  styleUrls: ['./selfiecamera.page.scss'],
 })
-export class RegisterhomePage{
+export class SelfiecameraPage implements OnInit {
+
 image = null
 cameraActive = false;
-URLCnhFrente = null;
-URLCnhVerso = null;
+Selfieurl = null;
 
 
-  constructor(public router: Router,private storage: Storage) {}
+  constructor(public router: Router,private storage: Storage) { }
+
+  ngOnInit() {
+  }
 
   async takePicture() {
-    if(this.URLCnhFrente === this.URLCnhVerso){
+    if(this.Selfieurl === this.Selfieurl){
       const image = await Camera.getPhoto({
         quality: 90,
         allowEditing: true,
@@ -30,25 +34,11 @@ URLCnhVerso = null;
         presentationStyle: 'fullscreen',
         source:CameraSource.Camera,
       });
-      var URLCnhFrente = image.base64String
-      this.URLCnhFrente = `data:image/jpeg;base64,${URLCnhFrente}`;
-      console.log('URLCnhFrente:',this.URLCnhFrente)
-      this.storage.set('clientes_senha',URLCnhFrente)
-    }else{
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Base64,
-        promptLabelPhoto:'ESCOLHA UMA FOTO DA GALERIA',
-        promptLabelPicture: 'TIRE UMA FOTO',
-        presentationStyle: 'fullscreen',
-        source:CameraSource.Camera,
-      });
-      var URLCnhVerso = image.base64String
-      this.URLCnhVerso = `data:image/jpeg;base64,${URLCnhVerso}`;
-      console.log('URLCnhVerso:',this.URLCnhVerso)
-      this.storage.set('clientes_senha',URLCnhVerso)
-      this.router.navigate(['registerhomeselfie']);
+      var Selfieurl = image.base64String
+      this.Selfieurl = `data:image/jpeg;base64,${Selfieurl}`;
+      console.log('Selfieurl:',this.Selfieurl)
+      this.storage.set('clientes_senha',Selfieurl)
+      this.router.navigate(['registerhomeenviar']);
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-registerdocuments',
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterdocumentsPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private activaredRoute: ActivatedRoute) {}
 
   ngOnInit() {
   }
